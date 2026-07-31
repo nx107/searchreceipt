@@ -1,6 +1,7 @@
 import { mkdtemp, readFile, symlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import {
   compareReceipts,
@@ -85,7 +86,7 @@ describe("receipt contracts", () => {
 describe("local content verification", () => {
   it("verifies the complete demo snapshots", async () => {
     const receipt = createReceipt(await draft());
-    const root = new URL("../fixtures/demo", import.meta.url).pathname;
+    const root = fileURLToPath(new URL("../fixtures/demo", import.meta.url));
     const result = await verifyReceipt(receipt, root);
     expect(result.passed).toBe(true);
     expect(
@@ -150,7 +151,7 @@ describe("local content verification", () => {
 describe("verification result contract", () => {
   it("rejects the independently reviewed forged passing forms", async () => {
     const receipt = createReceipt(await draft());
-    const root = new URL("../fixtures/demo", import.meta.url).pathname;
+    const root = fileURLToPath(new URL("../fixtures/demo", import.meta.url));
     const valid = await verifyReceipt(receipt, root);
     const first = valid.contentChecks[0];
     expect(first?.status).toBe("verified");
@@ -192,7 +193,7 @@ describe("verification result contract", () => {
 
   it("binds result identity, integrity, exact ordered coverage, and hashes to the receipt", async () => {
     const receipt = createReceipt(await draft());
-    const root = new URL("../fixtures/demo", import.meta.url).pathname;
+    const root = fileURLToPath(new URL("../fixtures/demo", import.meta.url));
     const valid = await verifyReceipt(receipt, root);
     expect(validateVerificationResult(receipt, valid)).toEqual(valid);
 

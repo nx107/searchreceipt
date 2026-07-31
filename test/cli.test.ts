@@ -4,14 +4,18 @@ import { mkdtemp, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { promisify } from "node:util";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
 const execute = promisify(execFile);
-const cli = new URL("../dist/cli.js", import.meta.url).pathname;
-const draft = new URL("../fixtures/demo/draft.json", import.meta.url).pathname;
-const receiptPath = new URL("../fixtures/demo/receipt.json", import.meta.url)
-  .pathname;
-const root = new URL("../fixtures/demo", import.meta.url).pathname;
+const cli = fileURLToPath(new URL("../dist/cli.js", import.meta.url));
+const draft = fileURLToPath(
+  new URL("../fixtures/demo/draft.json", import.meta.url),
+);
+const receiptPath = fileURLToPath(
+  new URL("../fixtures/demo/receipt.json", import.meta.url),
+);
+const root = fileURLToPath(new URL("../fixtures/demo", import.meta.url));
 const fixtureSha256 =
   "673af3cbebba5f68fc303b6371ab03645226c073ca9359861a3f7839bce38dc2";
 
