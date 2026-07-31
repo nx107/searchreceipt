@@ -1,0 +1,33 @@
+name: Bug report
+description: Report reproducible incorrect SearchReceipt behavior
+title: "bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include secrets, wallet material, private RPC URLs, or undisclosed vulnerabilities. Follow SECURITY.md for security reports.
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Observed behavior
+      description: Include the command, exit code, and sanitized output.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: SearchReceipt, Node.js, pnpm, and OS versions
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal sanitized reproduction
+    validations:
+      required: true

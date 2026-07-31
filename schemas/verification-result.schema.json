@@ -1,0 +1,108 @@
+{
+  "$ref": "#/definitions/SearchReceiptVerification",
+  "definitions": {
+    "SearchReceiptVerification": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "type": "string",
+          "const": "searchreceipt-verification/v0.1"
+        },
+        "receiptId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]*$"
+        },
+        "receiptHash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "passed": { "type": "boolean" },
+        "integrityValid": { "type": "boolean" },
+        "claimReferencesValid": { "type": "boolean" },
+        "contentChecks": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "evidenceId": {
+                    "$ref": "#/definitions/SearchReceiptVerification/properties/receiptId"
+                  },
+                  "status": { "type": "string", "const": "verified" },
+                  "expectedHash": {
+                    "$ref": "#/definitions/SearchReceiptVerification/properties/receiptHash"
+                  },
+                  "actualHash": {
+                    "$ref": "#/definitions/SearchReceiptVerification/properties/receiptHash"
+                  }
+                },
+                "required": [
+                  "evidenceId",
+                  "status",
+                  "expectedHash",
+                  "actualHash"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "evidenceId": {
+                    "$ref": "#/definitions/SearchReceiptVerification/properties/receiptId"
+                  },
+                  "status": { "type": "string", "const": "unavailable" },
+                  "expectedHash": {
+                    "$ref": "#/definitions/SearchReceiptVerification/properties/receiptHash"
+                  }
+                },
+                "required": ["evidenceId", "status", "expectedHash"],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "evidenceId": {
+                    "$ref": "#/definitions/SearchReceiptVerification/properties/receiptId"
+                  },
+                  "status": { "type": "string", "const": "mismatch" },
+                  "expectedHash": {
+                    "$ref": "#/definitions/SearchReceiptVerification/properties/receiptHash"
+                  },
+                  "actualHash": {
+                    "$ref": "#/definitions/SearchReceiptVerification/properties/receiptHash"
+                  }
+                },
+                "required": ["evidenceId", "status", "expectedHash"],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 1000
+        },
+        "issues": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1, "maxLength": 4000 },
+          "maxItems": 2001
+        },
+        "assurance": {
+          "type": "string",
+          "const": "Internal integrity and supplied local snapshots only; external truth is not established."
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "receiptId",
+        "receiptHash",
+        "passed",
+        "integrityValid",
+        "claimReferencesValid",
+        "contentChecks",
+        "issues",
+        "assurance"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

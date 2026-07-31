@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "searchreceipt/v0.1",
+  "id": "demo-solana-research-001",
+  "createdAt": "2026-01-15T12:00:00.000Z",
+  "subject": {
+    "action": "research",
+    "query": "Show how a Solana transaction, account, and program can be referenced as local synthetic evidence."
+  },
+  "provenance": {
+    "producer": "searchreceipt-fixture-generator",
+    "method": "fixture/demo",
+    "benchmark": false,
+    "notes": "Honest synthetic demo. No RPC call or model evaluation was performed."
+  },
+  "policy": {
+    "requireClaimEvidence": true,
+    "requireLocalContent": true,
+    "allowedHashAlgorithms": ["sha256"]
+  },
+  "evidence": [
+    {
+      "id": "ev-web-context",
+      "kind": "web",
+      "uri": "https://example.invalid/searchreceipt/synthetic-context",
+      "title": "Synthetic research context",
+      "retrievedAt": "2026-01-15T11:58:00.000Z",
+      "contentHash": "sha256:9cc37e6b23f546b02b215fbf04dc3d484516df37da391cc7770afcb8fbe7efd9",
+      "contentPath": "snapshots/research.md"
+    },
+    {
+      "id": "ev-solana-tx",
+      "kind": "solanaTransaction",
+      "cluster": "devnet",
+      "signature": "5HueCGU8rMjxEXxiPuD5BDuRa2FtspF7BLaXU5Cok9DvnJkHG7QXc6vY4wWJYgY7uHBZG5p19TnVXJbLLWexV6x",
+      "slot": 250000000,
+      "observedAt": "2026-01-15T11:59:00.000Z",
+      "contentHash": "sha256:1e5a02f44c6e6c05fc04cf95935a71e308d5fd0deb700fcbf4d6b8b79b9c27c7",
+      "contentPath": "snapshots/transaction.json"
+    },
+    {
+      "id": "ev-solana-account",
+      "kind": "solanaAccount",
+      "cluster": "devnet",
+      "address": "Vote111111111111111111111111111111111111111",
+      "ownerProgram": "11111111111111111111111111111111",
+      "slot": 250000000,
+      "observedAt": "2026-01-15T11:59:00.000Z",
+      "contentHash": "sha256:e301829d2bb35b359bba9e1de37b0f0b22b13e5a5f203f76b30a904fcfc06020",
+      "contentPath": "snapshots/account.json"
+    },
+    {
+      "id": "ev-solana-program",
+      "kind": "solanaProgram",
+      "cluster": "devnet",
+      "programId": "11111111111111111111111111111111",
+      "deploymentSlot": 1,
+      "observedAt": "2026-01-15T11:59:00.000Z",
+      "contentHash": "sha256:175e0a9e491af78d9cafbd87ce1beb023052fdb62328b693945f8f6f7b69fbd2",
+      "contentPath": "snapshots/program.json"
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim-identifiers-recorded",
+      "statement": "The synthetic receipt records transaction, account, and program identifiers as typed evidence references.",
+      "evidenceRefs": ["ev-solana-tx", "ev-solana-account", "ev-solana-program"]
+    },
+    {
+      "id": "claim-fixture-only",
+      "statement": "The accompanying context explicitly labels this dataset as synthetic rather than live-chain evidence.",
+      "evidenceRefs": ["ev-web-context"]
+    }
+  ]
+}

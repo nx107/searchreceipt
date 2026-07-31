@@ -1,0 +1,6 @@
+node_modules
+dist
+coverage
+pnpm-lock.yaml
+# Canonical compact JSON; regenerate with pnpm demo. Key order is contract-significant.
+fixtures/demo/receipt.json

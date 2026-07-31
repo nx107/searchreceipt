@@ -1,0 +1,25 @@
+name: Feature proposal
+description: Propose a scoped evidence-integrity improvement
+title: "proposal: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and user
+      description: What evidence workflow fails today, and for whom?
+    validations:
+      required: true
+  - type: textarea
+    id: assurance
+    attributes:
+      label: Assurance-boundary impact
+      description: Explain what the feature would and would not prove.
+    validations:
+      required: true
+  - type: textarea
+    id: approach
+    attributes:
+      label: Minimal approach and alternatives
+    validations:
+      required: true
