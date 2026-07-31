@@ -23,8 +23,10 @@ jobs:
         uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
           node-version: 20
-      - name: Enable pnpm
-        run: corepack enable && corepack prepare pnpm@10.34.0 --activate
+      - name: Setup pnpm
+        uses: pnpm/action-setup@f9772c5d2079b3b250e9d0e2dc8c1c6d0f12ce56 # v6
+        with:
+          version: 10.34.0
       - name: Frozen install
         run: pnpm install --frozen-lockfile
       - name: Generated schema drift
