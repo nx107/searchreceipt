@@ -19,22 +19,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
-      - name: Setup Node.js
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
-        with:
-          node-version: 20
-      - name: Setup pnpm
+      - name: Install pnpm
         uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
         with:
           version: 10.34.0
-      - name: Frozen install
-        run: pnpm install --frozen-lockfile
-      - name: Generated schema drift
-        run: pnpm schema:check
-      - name: Quality gate
-        run: pnpm check
-      - name: Dependency audit
-        run: pnpm audit --audit-level high
+          run_install: false
+      - name: Install Node.js
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm schema:check
+      - run: pnpm check
+      - run: pnpm audit --audit-level high
       - name: CLI smoke
         shell: bash
         run: |
